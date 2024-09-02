@@ -8,7 +8,8 @@ define("BD", "gestionempleados");
 define("APP_NAME","GESTION DE EMPLEADOS");
 define("APP_TITULO_LOGIN","SNTE CONSULTA");
 define("APP_URL","http://localhost/GESTION_EMPLEADOS");
-define("APP_URL");
+define("APP_URL_INICIO","http://localhost/GESTION_EMPLEADOS/empleados");
+//define("APP_URL");
 
 $servidor = "mysql:dbname=".BD.";host=".SERVIDOR;
 
