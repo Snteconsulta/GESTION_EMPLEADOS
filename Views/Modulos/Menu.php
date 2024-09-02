@@ -18,9 +18,9 @@
 
         <li class="header">TABLAS</li>
         <li><a href="empleados"><i class="fa fa-circle-o text-white"></i> <span>Empleados</span></a></li>
-        <li><a href="padrones"><i class="fa fa-circle-o text-yellow"></i> <span>Padrones</span></a></li>
+        <!-- <li><a href="padrones"><i class="fa fa-circle-o text-yellow"></i> <span>Padrones</span></a></li>
         <li><a href="vestuario"><i class="fa fa-circle-o text-green"></i> <span>Vestuario</span></a></li>
-        <li><a href="trayectoria"><i class="fa fa-circle-o text-blue"></i> <span>Trayectoria</span></a></li>
+        <li><a href="trayectoria"><i class="fa fa-circle-o text-blue"></i> <span>Trayectoria</span></a></li> -->
       </ul>
     </section>
     <!-- /.sidebar -->
