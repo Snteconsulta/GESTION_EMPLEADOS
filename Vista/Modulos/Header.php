@@ -31,7 +31,7 @@
                 <img src="Vista/Imagenes/Users/administrador_icono.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Cesar Garcia - Administrador 
+                  Cesar Garciac - Administrador 
                   <small>Desde Ago. 2024</small>
                 </p>
               </li>
@@ -43,7 +43,7 @@
                   <a href="#" class="btn btn-primary">Perfil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-danger">Cerrar Sesion</a>
+                  <a href="#" class="btn btn-danger">Cerrar Sesiones</a>
                 </div>
               </li>
             </ul>

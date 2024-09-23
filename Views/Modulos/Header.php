@@ -1,3 +1,4 @@
+
 <header class="main-header">
     <!-- Logo -->
     <a href="../../index2.html" class="logo">
@@ -43,7 +44,7 @@
                   <a href="#" class="btn btn-primary">Perfil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-danger">Cerrar Sesion</a>
+                  <a href="#" class="btn btn-danger" id="logout-btn">Cerrar Sesion</a>
                 </div>
               </li>
             </ul>
@@ -53,3 +54,11 @@
       </div>
     </nav>
   </header>
+
+  <script>
+  document.getElementById('logout-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    var APP_URL_LOGIN ="http://localhost/GESTION_EMPLEADOS/LOGIN";
+    window.location.href = '<?= APP_URL_LOGIN; ?>';
+  });
+</script>
