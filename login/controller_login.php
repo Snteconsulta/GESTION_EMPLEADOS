@@ -1,12 +1,12 @@
 <?php
 include('../app/config.php');
-//include('../layout/mensajes.php');
+//include('../layout/mensajes.php');zzzz
 
 session_start();
 
 $response = [
     'status' => 'error',
-    'message' => 'Hubo un problema al procesar la solicitud.'
+    'message' => 'Hubo un problema al procesar la solicitud...'
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

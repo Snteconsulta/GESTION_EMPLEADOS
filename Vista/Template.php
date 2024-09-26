@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Gestion de Empleados</title>
+  <title>Gestion de Empleados xxx</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -18,6 +18,15 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="Vista/Recursos/dist/css/skins/_all-skins.min.css">
+
+    <!-- jQuery y Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,16 +69,16 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="Vista/Recursos/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- <script src="Vista/Recursos/bower_components/jquery/dist/jquery.min.js"></script> -->
 <!-- Bootstrap 3.3.7 -->
-<script src="Vista/Recursos/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- <script src="Vista/Recursos/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 <!-- SlimScroll -->
-<script src="Vista/Recursos/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- <script src="Vista/Recursos/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script> -->
 <!-- FastClick -->
 <script src="Vista/Recursos/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="Vista/Recursos/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
+<!-- AdminLTE for demo purposesxxxx -->
 <script src="Vista/Recursos/dist/js/demo.js"></script>
 <script>
   $(document).ready(function () {

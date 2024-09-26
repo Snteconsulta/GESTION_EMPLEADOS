@@ -1,19 +1,13 @@
+
 <div class="content" style="min-height: 717px;">
     <section class="content-header">
-       <!-- <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col sm-6">
-                     <h1>Tabla de Empleados ....</h1>
-                </div>
-            </div>
-        </div>
-     -->
     <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
                          <h1>Personal</h1>
                     </div>
                 </div>
+          
                 <!-- Tabla de Bootstrap -->
                 <div class="row">
                     <div class="col-12">
@@ -23,7 +17,23 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table class="table table-bordered table-striped">
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <!-- Combo para seleccionar el filtro -->
+                                    <select id="filtro" class="form-control">
+                                        <option value="empleados">Empleados</option>
+                                        <option value="vestuario">Vestuario</option>
+                                        <option value="padrones">Padrones</option>
+                                        <option value="trayectoria">Trayectoria</option>
+                                    </select>
+                                    <br>
+                                </div>
+                            </div>
+
+
+                            <div class="table-responsive">
+                               <table id="empleados-table" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Número Empleado</th>
@@ -45,6 +55,7 @@
                                     <tbody id="empleados-tbody">
                                     </tbody>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -125,133 +136,20 @@
         </div>
     </div>
 
+ 
+<script>
+    $(document).ready(function() {
+        loadEmployees();
 
- <!-- jQuery y Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-
-        $(document).ready(function() {
-
-            function loadEmployees() {
-                $.ajax({
-                    url: '../GESTION_EMPLEADOS/Controllers/GetEmpleados.php',
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            var tbody = $('#empleados-tbody');
-                            tbody.empty();
-                            response.data.forEach(function(empleado) {
-                                var row = `<tr>
-                                    <td>${empleado.numempleado}</td>
-                                    <td>${empleado.nombre}</td>
-                                    <td>${empleado.apaterno}</td>
-                                    <td>${empleado.amaterno}</td>
-                                    <td>${empleado.curp}</td>
-                                    <td>${empleado.rfc}</td>
-                                    <td>${empleado.plaza}</td>
-                                    <td>${empleado.puesto}</td>
-                                    <td>${empleado.telefono}</td>
-                                    <td>${empleado.email}</td>
-                                    <td>${empleado.estadocivil}</td>
-                                    <td>${empleado.hijos}</td>
-                                    <td>${empleado.fechin}</td>
-                                    <td><button class="btn btn-warning btn-sm edit-btn" data-id="${empleado.id_usuario}">Editar</button></td>
-                                </tr>`;
-                                tbody.append(row);
-                            });
-
-                            $('.edit-btn').click(function() {
-                                var id = $(this).data('id');
-                                showEditModal(id);
-                            });
-                        } else {
-                            console.error(response.message);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error al cargar los datos:', error);
-                    }
-                });
-            }
-
-            function showEditModal(id) {
-                console.log(id)
-                $.ajax({
-                    url: '../GESTION_EMPLEADOS/Controllers/GetEmpleadoById.php',
-                    method: 'GET',
-                    data: { id: id },
-                    dataType: 'json',
-                    success: function(response) {
-                        console.log(response)
-                        if (response.status === 'success') {
-                            var empleado = response.data;
-                            $('#edit-id').val(empleado.id_usuario);
-                            $('#edit-numempleado').val(empleado.numempleado);
-                            $('#edit-nombre').val(empleado.nombre);
-                            $('#edit-apaterno').val(empleado.apaterno);
-                            $('#edit-amaterno').val(empleado.amaterno);
-                            $('#edit-curp').val(empleado.curp);
-                            $('#edit-rfc').val(empleado.rfc);
-                            $('#edit-plaza').val(empleado.plaza);
-                            $('#edit-puesto').val(empleado.puesto);
-                            $('#edit-telefono').val(empleado.telefono);
-                            $('#edit-email').val(empleado.email);
-                            $('#edit-estadocivil').val(empleado.estadocivil);
-                            $('#edit-hijos').val(empleado.hijos);
-                            $('#edit-fechin').val(empleado.fechin);
-                            $('#editModal').modal('show');
-                        } else {
-                            console.error(response.message);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error al cargar los datos del empleado:', error);
-                    }
-                });
-            }
-
-            $('#edit-form').submit(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: '../GESTION_EMPLEADOS/Controllers/UpdateEmpleado.php',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            $('#editModal').modal('hide');
-                            loadEmployees();
-                        } else {
-                            console.error(response.message);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error al actualizar los datos:', error);
-                    }
-                });
-            });
-
-            loadEmployees();
-
-        });
-    </script>
-
-
-    <!-- <script>
-        $(document).ready(function() {
+        function loadEmployees() {
             $.ajax({
-               
-                url: '../GESTION_EMPLEADOS/Controllers/GetEmpleados.php', 
+                url: '../GESTION_EMPLEADOS/Controllers/GetEmpleados.php',
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
-                    console.log(response)
                     if (response.status === 'success') {
                         var tbody = $('#empleados-tbody');
-                        tbody.empty(); 
+                        tbody.empty();
                         response.data.forEach(function(empleado) {
                             var row = `<tr>
                                 <td>${empleado.numempleado}</td>
@@ -270,12 +168,29 @@
                                 <td><button class="btn btn-warning btn-sm edit-btn" data-id="${empleado.id_usuario}">Editar</button></td>
                             </tr>`;
                             tbody.append(row);
+                        });
 
-                            $('.edit-btn').click(function() {
-                                var id = $(this).data('id');
-                                showEditModal(id);
-                            });
+                        $('.edit-btn').click(function() {
+                            var id = $(this).data('id');
+                            showEditModal(id);
+                        });
 
+                        // Inicializa DataTable después de cargar los empleados
+                        $('#empleados-table').DataTable({
+                            "language": {
+                                "search": "Buscar:",
+                                "lengthMenu": "Mostrar _MENU_ registros por página",
+                                "zeroRecords": "No se encontraron resultados",
+                                "info": "Mostrando página _PAGE_ de _PAGES_",
+                                "infoEmpty": "No hay registros disponibles",
+                                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                                "paginate": {
+                                    "first": "Primero",
+                                    "last": "Último",
+                                    "next": "Siguiente",
+                                    "previous": "Anterior"
+                                }
+                            }
                         });
                     } else {
                         console.error(response.message);
@@ -285,5 +200,61 @@
                     console.error('Error al cargar los datos:', error);
                 }
             });
+        }
+
+        function showEditModal(id) {
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/GetEmpleadoById.php',
+                method: 'GET',
+                data: { id: id },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        var empleado = response.data;
+                        $('#edit-id').val(empleado.id_usuario);
+                        $('#edit-numempleado').val(empleado.numempleado);
+                        $('#edit-nombre').val(empleado.nombre);
+                        $('#edit-apaterno').val(empleado.apaterno);
+                        $('#edit-amaterno').val(empleado.amaterno);
+                        $('#edit-curp').val(empleado.curp);
+                        $('#edit-rfc').val(empleado.rfc);
+                        $('#edit-plaza').val(empleado.plaza);
+                        $('#edit-puesto').val(empleado.puesto);
+                        $('#edit-telefono').val(empleado.telefono);
+                        $('#edit-email').val(empleado.email);
+                        $('#edit-estadocivil').val(empleado.estadocivil);
+                        $('#edit-hijos').val(empleado.hijos);
+                        $('#edit-fechin').val(empleado.fechin);
+                        $('#editModal').modal('show');
+                    } else {
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cargar los datos del empleado:', error);
+                }
+            });
+        }
+
+        $('#edit-form').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/UpdateEmpleado.php',
+                method: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#editModal').modal('hide');
+                        loadEmployees();
+                    } else {
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al actualizar los datos:', error);
+                }
+            });
         });
-    </script> -->
+    });
+</script>
