@@ -7,7 +7,12 @@
                          <h1>Personal</h1>
                     </div>
                 </div>
-          
+                <!-- Botón para agregar nuevo empleado -->
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <button class="btn btn-success add-employee-btn">Agregar Empleado</button>
+                    </div>
+                </div>
                 <!-- Tabla de Bootstrap -->
                 <div class="row">
                     <div class="col-12">
@@ -37,6 +42,7 @@
                                     <thead>
                                         <tr>
                                             <th>Número Empleado</th>
+                                            <th>Delegación</th>
                                             <th>Nombre</th>
                                             <th>Apellido Paterno</th>
                                             <th>Apellido Materno</th>
@@ -48,6 +54,7 @@
                                             <th>Email</th>
                                             <th>Estado Civil</th>
                                             <th>Hijos</th>
+                                            <th>Trayectoria</th>
                                             <th>Fecha Inicio</th>
                                             <th>Acciones</th>
                                             <th>ver hijos</th>
@@ -64,6 +71,77 @@
                 </div>
     </div>
     </section>
+</div>
+
+   <!-- Modal para agregar nuevo empleado -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEmployeeModalLabel">Agregar Empleado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-employee-form">
+                    <div class="form-group">
+                        <label for="add-numempleado">Número Empleado</label>
+                        <input type="text" class="form-control" id="add-numempleado" name="numempleado" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-nombre">Nombre</label>
+                        <input type="text" class="form-control" id="add-nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-apaterno">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="add-apaterno" name="apaterno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-amaterno">Apellido Materno</label>
+                        <input type="text" class="form-control" id="add-amaterno" name="amaterno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-curp">Curp</label>
+                        <input type="text" class="form-control" id="add-curp" name="curp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-rfc">RFC</label>
+                        <input type="text" class="form-control" id="add-rfc" name="rfc" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-plaza">Plaza</label>
+                        <input type="text" class="form-control" id="add-plaza" name="plaza" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-puesto">Puesto</label>
+                        <input type="text" class="form-control" id="add-puesto" name="puesto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-telefono">Telefono</label>
+                        <input type="text" class="form-control" id="add-telefono" name="telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-email">Email</label>
+                        <input type="email" class="form-control" id="add-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-estadocivil">Estado Civil</label>
+                        <input type="text" class="form-control" id="add-estadocivil" name="estadocivil" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-hijos">Hijos</label>
+                        <input type="number" class="form-control" id="add-hijos" name="hijos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-fechin">Fecha Inicio</label>
+                        <input type="date" class="form-control" id="add-fechin" name="fechin" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
   <!-- Modal para edición -->
@@ -128,6 +206,10 @@
                             <input type="number" class="form-control" id="edit-hijos" name="hijos" required>
                         </div>
                         <div class="form-group">
+                            <label for="edit-trayectoria">Trayectoria</label>
+                            <textarea class="form-control" id="edit-trayectoria" name="trayectoria" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
                             <label for="edit-fechin">Fecha Inicio</label>
                             <input type="date" class="form-control" id="edit-fechin" name="fechin" required>
                         </div>
@@ -151,6 +233,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
+                <input type="text" name="num_empleado" id="num_empleado" value=""> 
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -162,10 +245,24 @@
                         </tbody>
                     </table>
                 </div>
+                <hr>
+                <h5>Agregar Nuevo Hijo</h5>
+                <form id="add-hijo-form">
+                    <div class="form-group">
+                        <label for="nombre-hijo">Nombre del Hijo</label>
+                        <input type="text" class="form-control" id="nombre-hijo" name="nombre-hijo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha-nacimiento-hijo">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control" id="fecha-nacimiento-hijo" name="fecha-nacimiento-hijo" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar Hijo</button>
+                </form>
             </div>
         </div>
     </div>
    </div>
+   
   <div class="modal fade" id="vestuariosModal" tabindex="-1" role="dialog" aria-labelledby="vestuariosModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -177,6 +274,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
+                   <input type="text" name="num_empleado_v" id="num_empleado_v" value=""> 
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -187,6 +285,19 @@
                         <tbody id="vestuarios-tbody">
                         </tbody>
                     </table>
+                    <hr>
+                    <h5>Agregar Nuevo Vestuario</h5>
+                    <form id="add-vestuario-form">
+                        <div class="form-group">
+                            <label for="nombre-vestuario">Nombre del Vestuario</label>
+                            <input type="text" class="form-control" id="nombre-vestuario" name="nombre-vestuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orden-vestuario">Orden</label>
+                            <input type="text" class="form-control" id="orden-vestuario" name="orden-vestuario" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar Vestuario</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -205,6 +316,10 @@
           loadEmployees();
         });
 
+        $('.add-employee-btn').click(function() {
+          $('#addEmployeeModal').modal('show');
+        });
+
         function loadEmployees() {
             var filtro = $('#filtro').val();
             $.ajax({
@@ -213,6 +328,7 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.status === 'success') {
+
                         var tbody = $('#empleados-tbody');
                         tbody.empty();
                      
@@ -240,7 +356,6 @@
                             var numempleado = $(this).data('id');
                             showVestuarioModal(numempleado);
                         });
-
 
                         $('#empleados-table').DataTable({
                             "stateSave": true,
@@ -273,6 +388,7 @@
         function agregarFilaEmpleado(empleado, tbody) {
                 var row = `<tr>
                     <td>${empleado.numempleado}</td>
+                    <td>${empleado.Delegacion}</td>
                     <td>${empleado.nombre}</td>
                     <td>${empleado.apaterno}</td>
                     <td>${empleado.amaterno}</td>
@@ -284,6 +400,7 @@
                     <td>${empleado.email}</td>
                     <td>${empleado.estadocivil}</td>
                     <td>${empleado.hijos}</td>
+                    <td>${empleado.Trayectoria}</td>
                     <td>${empleado.fechin}</td>
                     <td><button class="btn btn-warning btn-sm edit-btn" data-id="${empleado.id_usuario}">Editar</button></td>
                     <td><button class="btn btn-info btn-sm hijos-btn" data-id="${empleado.numempleado}">Ver Hijos</button></td>
@@ -315,6 +432,7 @@
                         $('#edit-estadocivil').val(empleado.estadocivil);
                         $('#edit-hijos').val(empleado.hijos);
                         $('#edit-fechin').val(empleado.fechin);
+                        $('#edit-trayectoria').val(empleado.Trayectoria);
                         $('#editModal').modal('show');
                     } else {
                         console.error(response.message);
@@ -326,68 +444,105 @@
             });
         }
 
+    
         function showHijosModal(numempleado) {
-            $.ajax({
+
+                $.ajax({
                 url: '../GESTION_EMPLEADOS/Controllers/GetHijosEmpleado.php',
                 method: 'GET',
                 data: { NumeroEmpleado: numempleado },
                 dataType: 'json',
                 success: function(response) {
+                    var tbody = $('#hijos-tbody');
+
                     if (response.status === 'success') {
                         var hijos = response.data;
-                        console.log(hijos)
-                        var tbody = $('#hijos-tbody');
+                  
                         tbody.empty();
-                        hijos.forEach(function(hijo) {
-                            var row = `<tr>
-                                <td>${hijo.NombreHijo}</td>
-                                <td>${hijo.FechaNacimiento}</td>
-                            </tr>`;
-                            tbody.append(row);
-                        });
-                        $('#hijosModal').modal('show');
+                        var emptyRow = `<tr><td colspan="2" class="text-center">No hay registros de hijos.</td></tr>`;
+                        if (hijos.length === 0) {
+                            tbody.append(emptyRow);
+                        } else {
+                            hijos.forEach(function(hijo) {
+                                var row = `<tr>
+                                    <td>${hijo.NombreHijo}</td>
+                                    <td>${hijo.FechaNacimiento}</td>
+                                </tr>`;
+                                tbody.append(row);
+                            });
+                        }
+                        
+    
                     } else {
-                        console.error(response.message);
+                            tbody.empty();
+                            console.error(response.message);
+                            var errorRow = `<tr><td colspan="2" class="text-center">${response.message}</td></tr>`;
+                            tbody.append(errorRow);
                     }
+
+                    $('#num_empleado').val(numempleado);
+                    $('#hijosModal').modal('show');
+
                 },
                 error: function(xhr, status, error) {
                     console.error('Error al cargar los datos de los hijos:', error);
                 }
-            });
-        }
+         });
+      }
 
-        function showVestuarioModal(numempleado) {
+       function showVestuarioModal(numempleado) {
             $.ajax({
                 url: '../GESTION_EMPLEADOS/Controllers/GetVestuarioEmpleado.php',
                 method: 'GET',
                 data: { NumeroEmpleado: numempleado },
                 dataType: 'json',
                 success: function(response) {
+                    var tbody = $('#vestuarios-tbody');
+
+                    // Verificar si la respuesta fue exitosa
                     if (response.status === 'success') {
                         var vestuarios = response.data;
-                        console.log(vestuarios)
-                        var tbody = $('#vestuarios-tbody');
-                        tbody.empty();
-                        vestuarios.forEach(function(ves) {
-                            var row = `<tr>
-                                <td>${ves.Vestuario}</td>
-                                <td>${ves.Orden}</td>
-                            </tr>`;
-                            tbody.append(row);
-                        });
-                        $('#vestuariosModal').modal('show');
+
+                        tbody.empty(); // Limpiar el tbody antes de agregar datos
+                        var emptyRow = `<tr><td colspan="2" class="text-center">No hay registros de vestuarios.</td></tr>`;
+
+                        if (vestuarios.length === 0) {
+                            tbody.append(emptyRow); // Agregar fila vacía si no hay datos
+                        } else {
+                            vestuarios.forEach(function(ves) {
+                                var row = `<tr>
+                                    <td>${ves.Vestuario}</td>
+                                    <td>${ves.Orden}</td>
+                                </tr>`;
+                                tbody.append(row); // Agregar fila para cada vestuario
+                            });
+                        }
                     } else {
+                        tbody.empty(); // Limpiar el tbody en caso de error
                         console.error(response.message);
+                        var errorRow = `<tr><td colspan="2" class="text-center">${response.message}</td></tr>`;
+                        tbody.append(errorRow); // Agregar fila de error
                     }
+
+                    $('#num_empleado_v').val(numempleado); // Establecer el número de empleado
+                    $('#vestuariosModal').modal('show'); // Mostrar el modal
                 },
                 error: function(xhr, status, error) {
                     console.error('Error al cargar los datos de los vestuarios:', error);
+                    var tbody = $('#vestuarios-tbody');
+                    tbody.empty();
+                    var errorRow = `<tr><td colspan="2" class="text-center">Error al cargar los datos de los vestuarios.</td></tr>`;
+                    tbody.append(errorRow); // Agregar fila de error si ocurre un fallo en la llamada AJAX
                 }
             });
-        }
+       }
 
         $('#edit-form').submit(function(e) {
             e.preventDefault();
+
+             // Imprime los datos para revisar lo que está siendo enviado
+           console.log($(this).serialize());
+
             $.ajax({
                 url: '../GESTION_EMPLEADOS/Controllers/UpdateEmpleado.php',
                 method: 'POST',
@@ -396,6 +551,9 @@
                 success: function(response) {
                     if (response.status === 'success') {
                         $('#editModal').modal('hide');
+                        if ($.fn.DataTable.isDataTable('#empleados-table')) {
+                          $('#empleados-table').DataTable().clear().destroy();
+                         }
                         loadEmployees();
                     } else {
                         console.error(response.message);
@@ -406,5 +564,102 @@
                 }
             });
         });
+      
+        $('#add-employee-form').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/AddEmpleado.php',
+                method: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response)
+                    if (response.status === 'success') {
+                        $('#addEmployeeModal').modal('hide');
+                        if ($.fn.DataTable.isDataTable('#empleados-table')) {
+                          $('#empleados-table').DataTable().clear().destroy();
+                         }
+                        loadEmployees();
+                    } else {
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al agregar el empleado:', error);
+                }
+            });
+        });
+
+        $('#add-hijo-form').submit(function(e) {
+            e.preventDefault(); 
+            const numempleado = $('#num_empleado').val();
+            console.log(numempleado)
+
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/AddHijo.php',
+                method: 'POST',
+                data: {
+                    nombre: $('#nombre-hijo').val(),
+                    fecha_nacimiento: $('#fecha-nacimiento-hijo').val(),
+                    numempleado: numempleado 
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response)
+                    if (response.status === 'success') {
+
+                        showHijosModal(numempleado);
+
+
+                        // // Actualizar la tabla de hijos
+                        // const nuevoHijo = `
+                        //     <tr>
+                        //         <td>${response.data.NombreHijo}</td>
+                        //         <td>${response.data.FechaNacimiento}</td>
+                        //     </tr>
+                        // `;
+                        // $('#hijos-tbody').append(nuevoHijo);
+
+                        // Limpiar el formulario
+                        $('#add-hijo-form')[0].reset();
+                    } else {
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al agregar el hijo:', error);
+                }
+            });
+        });
+
+        $('#add-vestuario-form').submit(function(e) {
+            e.preventDefault(); 
+            const numempleado = $('#num_empleado_v').val();
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/AddVestuario.php',
+                method: 'POST',
+                data: {
+                    vestuario: $('#nombre-vestuario').val(),
+                    orden: $('#orden-vestuario').val(),
+                    numempleado: numempleado 
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response)
+                    if (response.status === 'success') {
+       
+                        showVestuarioModal(numempleado);
+               
+                        $('#add-vestuario-form')[0].reset();
+                    } else {
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al agregar el vestuario:', error);
+                }
+            });
+        });
+
     });
 </script>

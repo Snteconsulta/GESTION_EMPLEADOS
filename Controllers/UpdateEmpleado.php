@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $estadocivil = $_POST['estadocivil'];
     $hijos = $_POST['hijos'];
+    $trayectoria = $_POST['trayectoria'];
     $fechin = $_POST['fechin'];
 
     try {
@@ -40,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     email = :email,
                     estadocivil = :estadocivil,
                     hijos = :hijos,
+                    Trayectoria = :trayectoria,
                     fechin = :fechin
                 WHERE id_usuario = :id";
         $query = $pdo->prepare($sql);
@@ -56,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->bindParam(':estadocivil', $estadocivil, PDO::PARAM_STR);
         $query->bindParam(':hijos', $hijos, PDO::PARAM_INT);
+        $query->bindParam(':trayectoria', $trayectoria, PDO::PARAM_STR);
         $query->bindParam(':fechin', $fechin, PDO::PARAM_STR);
         $query->execute();
 
@@ -63,8 +66,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response['status'] = 'success';
             $response['message'] = 'Empleado actualizado con éxito.';
         } else {
-            $response['message'] = 'No se realizaron cambios.';
+            $errorInfo = $query->errorInfo();
+            if (!empty($errorInfo[2])) {
+                $response['message'] = 'Error de la base de datos: ' . $errorInfo[2];
+            } else {
+                        // Si no hay errores, devolvemos la consulta SQL ejecutada
+                ob_start(); // Iniciar el buffer de salida
+                $query->debugDumpParams(); // Mostrar la consulta con parámetros
+                $sqlDebugInfo = ob_get_clean(); // Obtener la salida del buffer
+
+                $response['message'] = 'No se realizaron cambios. Consulta ejecutada: ' . $sqlDebugInfo;
+            }
+
         }
+
     } catch (PDOException $e) {
         $response['message'] = 'Error al actualizar la base de datos: ' . $e->getMessage();
     }
