@@ -12,7 +12,8 @@ $response = [
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST["email"];
     $password = $_POST["password"];
-
+  
+    
     $sql = "SELECT * FROM usuarios WHERE email = :email AND estado = '1'";
     $query = $pdo->prepare($sql);
     $query->bindParam(':email', $email, PDO::PARAM_STR);
