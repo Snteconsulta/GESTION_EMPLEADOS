@@ -7,12 +7,18 @@
                          <h1>Personal</h1>
                     </div>
                 </div>
-                <!-- Botón para agregar nuevo empleado -->
+                            <!-- Contenedor para ambos botones -->
                 <div class="row mb-2">
-                    <div class="col-sm-12">
+                    <div class="col-sm-1">
+                        <!-- Botón para agregar nuevo empleado -->
                         <button class="btn btn-success add-employee-btn">Agregar Empleado</button>
                     </div>
+                    <div class="col-sm-1">
+                        <!-- Botón para exportar a Excel -->
+                        <button class="btn btn-primary export-excel-btn">Exportar a Excel</button>
+                    </div>
                 </div>
+
                 <!-- Tabla de Bootstrap -->
                 <div class="row">
                     <div class="col-12">
@@ -24,7 +30,7 @@
                             <div class="card-body">
 
                             <div class="row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <!-- Combo para seleccionar el filtro -->
                                     <select id="filtro" class="form-control">
                                         <option value="empleados">Empleados</option>
@@ -143,7 +149,6 @@
         </div>
     </div>
 </div>
-
   <!-- Modal para edición -->
   <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -304,6 +309,7 @@
     </div>
    </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
     $(document).ready(function() {
 
@@ -319,6 +325,65 @@
         $('.add-employee-btn').click(function() {
           $('#addEmployeeModal').modal('show');
         });
+
+    //       // Export to Excel functionality
+    //  $('.export-excel-btn').click(function() {
+    //         var table = document.getElementById('empleados-table');
+    //         var wb = XLSX.utils.table_to_book(table, { sheet: "Empleados" });
+    //         XLSX.writeFile(wb, 'Lista_Empleados.xlsx');
+    //     });
+
+                // Export to Excel functionality
+        $('.export-excel-btn').click(function() {
+            // Realizar la consulta AJAX para obtener todos los empleados
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/GetEmpleados.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        // Crear una hoja de datos para el archivo Excel
+                        var data = response.data;
+
+                        // Crear encabezados para la tabla
+                        var headers = [
+                            "Número Empleado", "Delegación", "Nombre", "Apellido Paterno", 
+                            "Apellido Materno", "Curp", "RFC", "Plaza", "Puesto", 
+                            "Teléfono", "Email", "Estado Civil", "Hijos", 
+                            "Trayectoria", "Fecha Inicio"
+                        ];
+
+                        // Crear un array que contendrá todos los datos
+                        var rows = data.map(function(empleado) {
+                            return [
+                                empleado.numempleado, empleado.Delegacion, empleado.nombre,
+                                empleado.apaterno, empleado.amaterno, empleado.curp,
+                                empleado.rfc, empleado.plaza, empleado.puesto,
+                                empleado.telefono, empleado.email, empleado.estadocivil,
+                                empleado.hijos, empleado.Trayectoria, empleado.fechin
+                            ];
+                        });
+
+                        // Combinar encabezados y filas
+                        rows.unshift(headers);
+
+                        // Crear la hoja de Excel
+                        var ws = XLSX.utils.aoa_to_sheet(rows);
+                        var wb = XLSX.utils.book_new();
+                        XLSX.utils.book_append_sheet(wb, ws, "Empleados");
+
+                        // Descargar el archivo Excel
+                        XLSX.writeFile(wb, 'Lista_Empleados.xlsx');
+                    } else {
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cargar los datos:', error);
+                }
+            });
+        });
+
 
         function loadEmployees() {
             var filtro = $('#filtro').val();
