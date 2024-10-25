@@ -15,6 +15,7 @@ try {
     $apaterno = $_POST['apaterno'] ?? null;
     $amaterno = $_POST['amaterno'] ?? null;
     $curp = $_POST['curp'] ?? null;
+    $Sexo = $_POST['Sexo'] ?? null;
     $rfc = $_POST['rfc'] ?? null;
     $plaza = $_POST['plaza'] ?? null;
     $puesto = $_POST['puesto'] ?? null;
@@ -28,8 +29,8 @@ try {
     if ($numempleado && $nombre && $apaterno && $amaterno && $curp && $rfc && $plaza && $puesto && $telefono && $email && $estadocivil && $hijos !== null && $fechin) {
         
         // Preparar la consulta SQL para insertar el nuevo empleado
-        $sql = "INSERT INTO personal (numempleado, nombre, apaterno, amaterno, curp, rfc, plaza, puesto, telefono, email, estadocivil, hijos, fechin) 
-                VALUES (:numempleado, :nombre, :apaterno, :amaterno, :curp, :rfc, :plaza, :puesto, :telefono, :email, :estadocivil, :hijos, :fechin)";
+        $sql = "INSERT INTO personal (numempleado, nombre, apaterno, amaterno, curp, rfc, plaza, puesto, telefono, email, estadocivil, hijos, fechin,Sexo) 
+                VALUES (:numempleado, :nombre, :apaterno, :amaterno, :curp, :rfc, :plaza, :puesto, :telefono, :email, :estadocivil, :hijos, :fechin,:Sexo)";
         $query = $pdo->prepare($sql);
 
         // Ejecutar la consulta
@@ -47,6 +48,7 @@ try {
             ':estadocivil' => $estadocivil,
             ':hijos' => $hijos,
             ':fechin' => $fechin,
+            ':Sexo' => $Sexo,
         ]);
 
         // Verificar si el empleado fue insertado correctamente

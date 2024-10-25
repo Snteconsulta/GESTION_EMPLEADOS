@@ -52,6 +52,7 @@
                                             <th>Nombre</th>
                                             <th>Apellido Paterno</th>
                                             <th>Apellido Materno</th>
+                                            <th>Sexo</th>
                                             <th>Curp</th>
                                             <th>RFC</th>
                                             <th>Plaza</th>
@@ -106,6 +107,10 @@
                     <div class="form-group">
                         <label for="add-amaterno">Apellido Materno</label>
                         <input type="text" class="form-control" id="add-amaterno" name="amaterno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-Sexo">Sexo</label>
+                        <input type="text" class="form-control" id="add-Sexo" name="Sexo" required>
                     </div>
                     <div class="form-group">
                         <label for="add-curp">Curp</label>
@@ -177,6 +182,10 @@
                         <div class="form-group">
                             <label for="edit-amaterno">Apellido Materno</label>
                             <input type="text" class="form-control" id="edit-amaterno" name="amaterno" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-Sexo">Sexo</label>
+                            <input type="text" class="form-control" id="edit-Sexo" name="Sexo" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-curp">Curp</label>
@@ -523,6 +532,7 @@
                     <td>${empleado.nombre}</td>
                     <td>${empleado.apaterno}</td>
                     <td>${empleado.amaterno}</td>
+                    <td>${empleado.Sexo}</td>
                     <td>${empleado.curp}</td>
                     <td>${empleado.rfc}</td>
                     <td>${empleado.plaza}</td>
@@ -705,6 +715,7 @@
                 success: function(response) {
                     console.log(response)
                     if (response.status === 'success') {
+                        alert("Se agrego empleado correctamente")
                         $('#addEmployeeModal').modal('hide');
                         if ($.fn.DataTable.isDataTable('#empleados-table')) {
                           $('#empleados-table').DataTable().clear().destroy();
