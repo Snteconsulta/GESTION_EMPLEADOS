@@ -15,7 +15,23 @@
                     </div>
                     <div class="col-sm-1">
                         <!-- Botón para exportar a Excel -->
-                        <button class="btn btn-primary export-excel-btn">Exportar a Excel</button>
+                        <button class="btn btn-primary export-excel-btn">Empleados</button>
+                    </div>
+                    <div class="col-sm-1">
+                        <!-- Botón para exportar a Excel -->
+                        <button class="btn btn-primary export-vestuarios-btn">Reporte vestuarios</button>
+                    </div>
+                    <div class="col-sm-1">
+                        <!-- Botón para exportar a Excel -->
+                        <button class="btn btn-primary export-phombres-btn"> Padrones Hombres</button>
+                    </div>
+                    <div class="col-sm-1">
+                        <!-- Botón para exportar a Excel -->
+                        <button class="btn btn-primary export-pmujeres-btn">Patrones Mujeres</button>
+                    </div>
+                    <div class="col-sm-1">
+                        <!-- Botón para exportar a Excel -->
+                        <button class="btn btn-primary export-phijos-btn">Padrones Hijos</button>
                     </div>
                 </div>
 
@@ -397,7 +413,6 @@
         //     });
         // });
 
-
         $('.export-excel-btn').click(function() {
         // Realizar la consulta AJAX para obtener todos los empleados
             $.ajax({
@@ -451,6 +466,7 @@
                         doc.save('Lista_Empleados.pdf');
                     } else {
                         console.error(response.message);
+                        alert(response.message);
                     }
                 },
                 error: function(xhr, status, error) {
@@ -458,7 +474,145 @@
                 }
             });
        });
+
+       $('.export-vestuarios-btn').click(function() { 
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/ReporteVesturioEmpleados.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        var data = response.data;
+
+                        // Agrupar los datos por empleado
+                        var empleados = {};
+                        data.forEach(function(item) {
+                            if (!empleados[item.NumeroEmpleado]) {
+                                empleados[item.NumeroEmpleado] = {
+                                    NumeroEmpleado: item.NumeroEmpleado,
+                                    NombreEmpleado: item.NombreEmpleado,
+                                    Vestuario: []
+                                };
+                            }
+                            // Añadir cada artículo de vestuario al empleado correspondiente
+                            empleados[item.NumeroEmpleado].Vestuario.push({
+                                NombreVestuario: item.NombreVestuario,
+                                Orden: item.Orden
+                            });
+                        });
+
+                        // Inicializar jsPDF
+                        var { jsPDF } = window.jspdf;
+                        var doc = new jsPDF({ orientation: 'portrait' });
+
+                        // Configuración de encabezado
+                        doc.setFontSize(18);
+                        doc.text('Lista de Empleados y su Vestuario', 14, 22);
+
+                        let startY = 30; // Posición inicial Y
+
+                        // Para cada empleado, generar las tablas
+                        Object.values(empleados).forEach((empleado) => {
+                            // Tabla de datos del empleado
+                            doc.autoTable({
+                                head: [['Número Empleado', 'Nombre']],
+                                body: [[empleado.NumeroEmpleado, empleado.NombreEmpleado]],
+                                startY: startY,
+                                theme: 'plain',
+                                margin: { top: 30 }
+                            });
+
+                            // Actualiza la posición Y para la siguiente tabla
+                            startY = doc.lastAutoTable.finalY + 10; // Espacio entre tablas
+
+                            // Tabla de vestuario del empleado
+                            doc.autoTable({
+                                head: [['Vestuario', 'Orden']],
+                                body: empleado.Vestuario.map(v => [v.NombreVestuario, v.Orden]),
+                                startY: startY,
+                                theme: 'striped',
+                                headStyles: { fillColor: [0, 0, 128] },
+                            });
+
+                            // Actualiza la posición Y para el siguiente empleado
+                            startY = doc.lastAutoTable.finalY + 20; // Espacio entre diferentes empleados
+                        });
+
+                        // Descargar el archivo PDF
+                        doc.save('Lista_Empleados_Vestuario.pdf');
+                    } else {
+                        console.error(response.message);
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cargar los datos:', error);
+                }
+            });
+       });
+
+       $('.export-phombres-btn').click(function() {
+            // Realizar la consulta AJAX para obtener todos los empleados
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/ReportePadronesHombres.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        var data = response.data;
+
+                        // Crear encabezados para la tabla
+                        var headers = [
+                            ["Número Empleado", "Delegación", "Nombre", "Apellido Paterno", 
+                            "Apellido Materno", "Curp", "RFC", "Plaza", "Puesto", 
+                            "Teléfono", "Email", "Estado Civil", "Hijos", 
+                            "Trayectoria", "Fecha Inicio"]
+                        ];
+
+                        // Crear un array que contendrá todos los datos
+                        var rows = data.map(function(empleado) {
+                            return [
+                                empleado.numempleado, empleado.Delegacion, empleado.nombre,
+                                empleado.apaterno, empleado.amaterno, empleado.curp,
+                                empleado.rfc, empleado.plaza, empleado.puesto,
+                                empleado.telefono, empleado.email, empleado.estadocivil,
+                                empleado.hijos, empleado.Trayectoria, empleado.fechin
+                            ];
+                        });
+
+                        // Inicializar jsPDF
+                        var { jsPDF } = window.jspdf; // Asegúrate de que jsPDF está cargado correctamente desde la librería
+                        var doc = new jsPDF({ orientation: 'landscape' }); // Orientación horizontal
+
+                        // Agregar el título del documento
+                        doc.setFontSize(18);
+                        doc.text('Lista de Empleados', 14, 22);
+
+                        // Usar autoTable para crear la tabla con encabezados y datos
+                        doc.autoTable({
+                            head: headers,
+                            body: rows,
+                            startY: 30, // Posición inicial de la tabla
+                            theme: 'striped', // Tema de la tabla
+                            headStyles: { fillColor: [0, 0, 128] }, // Color de fondo de los encabezados
+                            margin: { top: 20 },
+                        });
+
+                        // Descargar el archivo PDF
+                        doc.save('Lista_Empleados_Hombres.pdf');
+                    } else {
+                        alert(response.message);
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cargar los datos:', error);
+                }
+            });
+        });
+
        
+
 
         function loadEmployees() {
             var filtro = $('#filtro').val();
@@ -550,7 +704,217 @@
                 tbody.append(row);
        }
 
-        function showEditModal(id) {
+       $('.export-pmujeres-btn').click(function() {
+            // Realizar la consulta AJAX para obtener todos los empleados
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/ReportePadronesMujeres.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        var data = response.data;
+
+                        // Crear encabezados para la tabla
+                        var headers = [
+                            ["Número Empleado", "Delegación", "Nombre", "Apellido Paterno", 
+                            "Apellido Materno", "Curp", "RFC", "Plaza", "Puesto", 
+                            "Teléfono", "Email", "Estado Civil", "Hijos", 
+                            "Trayectoria", "Fecha Inicio"]
+                        ];
+
+                        // Crear un array que contendrá todos los datos
+                        var rows = data.map(function(empleado) {
+                            return [
+                                empleado.numempleado, empleado.Delegacion, empleado.nombre,
+                                empleado.apaterno, empleado.amaterno, empleado.curp,
+                                empleado.rfc, empleado.plaza, empleado.puesto,
+                                empleado.telefono, empleado.email, empleado.estadocivil,
+                                empleado.hijos, empleado.Trayectoria, empleado.fechin
+                            ];
+                        });
+
+                        // Inicializar jsPDF
+                        var { jsPDF } = window.jspdf; // Asegúrate de que jsPDF está cargado correctamente desde la librería
+                        var doc = new jsPDF({ orientation: 'landscape' }); // Orientación horizontal
+
+                        // Agregar el título del documento
+                        doc.setFontSize(18);
+                        doc.text('Lista de Empleados', 14, 22);
+
+                        // Usar autoTable para crear la tabla con encabezados y datos
+                        doc.autoTable({
+                            head: headers,
+                            body: rows,
+                            startY: 30, // Posición inicial de la tabla
+                            theme: 'striped', // Tema de la tabla
+                            headStyles: { fillColor: [0, 0, 128] }, // Color de fondo de los encabezados
+                            margin: { top: 20 },
+                        });
+
+                        // Descargar el archivo PDF
+                        doc.save('Lista_Empleados_Hombres.pdf');
+                    } else {
+                        alert(response.message);
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cargar los datos:', error);
+                }
+            });
+        });
+
+       
+
+
+        function loadEmployees() {
+            var filtro = $('#filtro').val();
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/GetEmpleados.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+
+                        var tbody = $('#empleados-tbody');
+                        tbody.empty();
+                     
+                        response.data.forEach(function(empleado) {
+                            if (filtro === 'padrones') {
+                                if (empleado.hijos > 0) {
+                                    agregarFilaEmpleado(empleado, tbody);
+                                }
+                            } else {
+                                agregarFilaEmpleado(empleado, tbody);
+                            }
+                        });
+
+                        $('.edit-btn').click(function() {
+                            var id = $(this).data('id');
+                            showEditModal(id);
+                        });
+              
+                        $('.hijos-btn').click(function() {
+                            var numempleado = $(this).data('id');
+                            showHijosModal(numempleado);
+                        });
+
+                        $('.vestuario-btn').click(function() {
+                            var numempleado = $(this).data('id');
+                            showVestuarioModal(numempleado);
+                        });
+
+                        $('#empleados-table').DataTable({
+                            "stateSave": true,
+                            "language": {
+                                "search": "Buscar:",
+                                "lengthMenu": "Mostrar _MENU_ registros por página",
+                                "zeroRecords": "No se encontraron resultados",
+                                "info": "Mostrando página _PAGE_ de _PAGES_",
+                                "infoEmpty": "No hay registros disponibles",
+                                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                                "paginate": {
+                                    "first": "Primero",
+                                    "last": "Último",
+                                    "next": "Siguiente",
+                                    "previous": "Anterior"
+                                }
+                            }
+                        });
+
+                    } else {
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cargar los datos:', error);
+                }
+            });
+        }
+
+        function agregarFilaEmpleado(empleado, tbody) {
+                var row = `<tr>
+                    <td>${empleado.numempleado}</td>
+                    <td>${empleado.Delegacion}</td>
+                    <td>${empleado.nombre}</td>
+                    <td>${empleado.apaterno}</td>
+                    <td>${empleado.amaterno}</td>
+                    <td>${empleado.Sexo}</td>
+                    <td>${empleado.curp}</td>
+                    <td>${empleado.rfc}</td>
+                    <td>${empleado.plaza}</td>
+                    <td>${empleado.puesto}</td>
+                    <td>${empleado.telefono}</td>
+                    <td>${empleado.email}</td>
+                    <td>${empleado.estadocivil}</td>
+                    <td>${empleado.hijos}</td>
+                    <td>${empleado.Trayectoria}</td>
+                    <td>${empleado.fechin}</td>
+                    <td><button class="btn btn-warning btn-sm edit-btn" data-id="${empleado.id_usuario}">Editar</button></td>
+                    <td><button class="btn btn-info btn-sm hijos-btn" data-id="${empleado.numempleado}">Ver Hijos</button></td>
+                    <td><button class="btn btn-info btn-sm vestuario-btn" data-id="${empleado.numempleado}">Ver vestuarios</button></td>
+                </tr>`;
+                tbody.append(row);
+       }
+
+       $('.export-phijos-btn').click(function() {
+            // Realizar la consulta AJAX para obtener todos los empleados con hijos menores de 12 años
+            $.ajax({
+                url: '../GESTION_EMPLEADOS/Controllers/ReportePadronesHijos.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        var data = response.data;
+
+                        // Crear encabezados para la tabla
+                        var headers = [
+                            ["Número Empleado", "Nombre", "Nombre Hijo", "Fecha de Nacimiento"]
+                        ];
+
+                        // Crear un array que contendrá todos los datos
+                        var rows = data.map(function(empleado) {
+                            return [
+                                empleado.NumeroEmpleado,
+                                empleado.NombreEmpleado,
+                                empleado.NombreHijo,
+                                empleado.FechaNacimiento
+                            ];
+                        });
+
+                        // Inicializar jsPDF
+                        var { jsPDF } = window.jspdf; // Asegúrate de que jsPDF está cargado correctamente desde la librería
+                        var doc = new jsPDF({ orientation: 'landscape' }); // Orientación horizontal
+
+                        // Agregar el título del documento
+                        doc.setFontSize(18);
+                        doc.text('Padrones de Hijos Menores de 12 Años', 14, 22);
+
+                        // Usar autoTable para crear la tabla con encabezados y datos
+                        doc.autoTable({
+                            head: headers,
+                            body: rows,
+                            startY: 30, // Posición inicial de la tabla
+                            theme: 'striped', // Tema de la tabla
+                            headStyles: { fillColor: [0, 0, 128] }, // Color de fondo de los encabezados
+                            margin: { top: 20 },
+                        });
+
+                        // Descargar el archivo PDF
+                        doc.save('Padrones_Hijos_Menores_12_Años.pdf');
+                    } else {
+                        alert(response.message);
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cargar los datos:', error);
+                }
+            });
+       });
+
+
+      function showEditModal(id) {
             $.ajax({
                 url: '../GESTION_EMPLEADOS/Controllers/GetEmpleadoById.php',
                 method: 'GET',
@@ -583,7 +947,7 @@
                     console.error('Error al cargar los datos del empleado:', error);
                 }
             });
-        }
+      }
 
         function showHijosModal(numempleado) {
 
@@ -628,7 +992,7 @@
                     console.error('Error al cargar los datos de los hijos:', error);
                 }
          });
-      }
+        }
 
        function showVestuarioModal(numempleado) {
             $.ajax({
