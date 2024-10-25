@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $apaterno = $_POST['apaterno'];
     $amaterno = $_POST['amaterno'];
+    $Sexo = $_POST['Sexo'];
     $curp = $_POST['curp'];
     $rfc = $_POST['rfc'];
     $plaza = $_POST['plaza'];
@@ -42,7 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     estadocivil = :estadocivil,
                     hijos = :hijos,
                     Trayectoria = :trayectoria,
-                    fechin = :fechin
+                    fechin = :fechin,
+                    Sexo = :Sexo
                 WHERE id_usuario = :id";
         $query = $pdo->prepare($sql);
         $query->bindParam(':id', $id, PDO::PARAM_INT);
@@ -60,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query->bindParam(':hijos', $hijos, PDO::PARAM_INT);
         $query->bindParam(':trayectoria', $trayectoria, PDO::PARAM_STR);
         $query->bindParam(':fechin', $fechin, PDO::PARAM_STR);
+        $query->bindParam(':Sexo', $Sexo, PDO::PARAM_STR);
         $query->execute();
 
         if ($query->rowCount() > 0) {

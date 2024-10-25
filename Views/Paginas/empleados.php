@@ -52,6 +52,7 @@
                                             <th>Nombre</th>
                                             <th>Apellido Paterno</th>
                                             <th>Apellido Materno</th>
+                                            <th>Sexo</th>
                                             <th>Curp</th>
                                             <th>RFC</th>
                                             <th>Plaza</th>
@@ -106,6 +107,10 @@
                     <div class="form-group">
                         <label for="add-amaterno">Apellido Materno</label>
                         <input type="text" class="form-control" id="add-amaterno" name="amaterno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-Sexo">Sexo</label>
+                        <input type="text" class="form-control" id="add-Sexo" name="Sexo" required>
                     </div>
                     <div class="form-group">
                         <label for="add-curp">Curp</label>
@@ -177,6 +182,10 @@
                         <div class="form-group">
                             <label for="edit-amaterno">Apellido Materno</label>
                             <input type="text" class="form-control" id="edit-amaterno" name="amaterno" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-Sexo">Sexo</label>
+                            <input type="text" class="form-control" id="edit-Sexo" name="Sexo" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-curp">Curp</label>
@@ -310,6 +319,10 @@
    </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
+
 <script>
     $(document).ready(function() {
 
@@ -333,24 +346,75 @@
     //         XLSX.writeFile(wb, 'Lista_Empleados.xlsx');
     //     });
 
-                // Export to Excel functionality
+        //         // Export to Excel functionality
+        // $('.export-excel-btn').click(function() {
+        //     // Realizar la consulta AJAX para obtener todos los empleados
+        //     $.ajax({
+        //         url: '../GESTION_EMPLEADOS/Controllers/GetEmpleados.php',
+        //         method: 'GET',
+        //         dataType: 'json',
+        //         success: function(response) {
+        //             if (response.status === 'success') {
+        //                 // Crear una hoja de datos para el archivo Excel
+        //                 var data = response.data;
+
+        //                 // Crear encabezados para la tabla
+        //                 var headers = [
+        //                     "Número Empleado", "Delegación", "Nombre", "Apellido Paterno", 
+        //                     "Apellido Materno", "Curp", "RFC", "Plaza", "Puesto", 
+        //                     "Teléfono", "Email", "Estado Civil", "Hijos", 
+        //                     "Trayectoria", "Fecha Inicio"
+        //                 ];
+
+        //                 // Crear un array que contendrá todos los datos
+        //                 var rows = data.map(function(empleado) {
+        //                     return [
+        //                         empleado.numempleado, empleado.Delegacion, empleado.nombre,
+        //                         empleado.apaterno, empleado.amaterno, empleado.curp,
+        //                         empleado.rfc, empleado.plaza, empleado.puesto,
+        //                         empleado.telefono, empleado.email, empleado.estadocivil,
+        //                         empleado.hijos, empleado.Trayectoria, empleado.fechin
+        //                     ];
+        //                 });
+
+        //                 // Combinar encabezados y filas
+        //                 rows.unshift(headers);
+
+        //                 // Crear la hoja de Excel
+        //                 var ws = XLSX.utils.aoa_to_sheet(rows);
+        //                 var wb = XLSX.utils.book_new();
+        //                 XLSX.utils.book_append_sheet(wb, ws, "Empleados");
+
+        //                 // Descargar el archivo Excel
+        //                 XLSX.writeFile(wb, 'Lista_Empleados.xlsx');
+        //             } else {
+        //                 console.error(response.message);
+        //             }
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error('Error al cargar los datos:', error);
+        //         }
+        //     });
+        // });
+
+
         $('.export-excel-btn').click(function() {
-            // Realizar la consulta AJAX para obtener todos los empleados
+        // Realizar la consulta AJAX para obtener todos los empleados
             $.ajax({
                 url: '../GESTION_EMPLEADOS/Controllers/GetEmpleados.php',
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
                     if (response.status === 'success') {
-                        // Crear una hoja de datos para el archivo Excel
+                        // Crear una hoja de datos para el archivo PDF
                         var data = response.data;
 
                         // Crear encabezados para la tabla
                         var headers = [
-                            "Número Empleado", "Delegación", "Nombre", "Apellido Paterno", 
+                            ["Número Empleado", "Delegación", "Nombre", "Apellido Paterno", 
                             "Apellido Materno", "Curp", "RFC", "Plaza", "Puesto", 
                             "Teléfono", "Email", "Estado Civil", "Hijos", 
-                            "Trayectoria", "Fecha Inicio"
+                            "Trayectoria", "Fecha Inicio"]
                         ];
 
                         // Crear un array que contendrá todos los datos
@@ -364,16 +428,27 @@
                             ];
                         });
 
-                        // Combinar encabezados y filas
-                        rows.unshift(headers);
+                        
+                        // Inicializar jsPDF
+                        var { jsPDF } = window.jspdf; // Asegúrate de que jsPDF está cargado correctamente desde la librería
+                        var doc = new jsPDF({ orientation: 'landscape' }); // Orientación horizontal
 
-                        // Crear la hoja de Excel
-                        var ws = XLSX.utils.aoa_to_sheet(rows);
-                        var wb = XLSX.utils.book_new();
-                        XLSX.utils.book_append_sheet(wb, ws, "Empleados");
+                        // Agregar el título del documento
+                        doc.setFontSize(18);
+                        doc.text('Lista de Empleados', 14, 22);
 
-                        // Descargar el archivo Excel
-                        XLSX.writeFile(wb, 'Lista_Empleados.xlsx');
+                        // Usar autoTable para crear la tabla con encabezados y datos
+                        doc.autoTable({
+                            head: headers,
+                            body: rows,
+                            startY: 30, // Posición inicial de la tabla
+                            theme: 'striped', // Tema de la tabla
+                            headStyles: { fillColor: [0, 0, 128] }, // Color de fondo de los encabezados
+                            margin: { top: 20 },
+                        });
+
+                        // Descargar el archivo PDF
+                        doc.save('Lista_Empleados.pdf');
                     } else {
                         console.error(response.message);
                     }
@@ -382,8 +457,8 @@
                     console.error('Error al cargar los datos:', error);
                 }
             });
-        });
-
+       });
+       
 
         function loadEmployees() {
             var filtro = $('#filtro').val();
@@ -457,6 +532,7 @@
                     <td>${empleado.nombre}</td>
                     <td>${empleado.apaterno}</td>
                     <td>${empleado.amaterno}</td>
+                    <td>${empleado.Sexo}</td>
                     <td>${empleado.curp}</td>
                     <td>${empleado.rfc}</td>
                     <td>${empleado.plaza}</td>
@@ -509,7 +585,6 @@
             });
         }
 
-    
         function showHijosModal(numempleado) {
 
                 $.ajax({
@@ -640,6 +715,7 @@
                 success: function(response) {
                     console.log(response)
                     if (response.status === 'success') {
+                        alert("Se agrego empleado correctamente")
                         $('#addEmployeeModal').modal('hide');
                         if ($.fn.DataTable.isDataTable('#empleados-table')) {
                           $('#empleados-table').DataTable().clear().destroy();
