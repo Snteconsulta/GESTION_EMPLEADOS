@@ -8,32 +8,16 @@
                     </div>
                 </div>
                             <!-- Contenedor para ambos botones -->
-                <div class="row mb-2">
-                    <div class="col-sm-1">
-                        <!-- Botón para agregar nuevo empleado -->
-                        <button class="btn btn-success add-employee-btn">Agregar Empleado</button>
-                    </div>
-                    <div class="col-sm-1">
-                        <!-- Botón para exportar a Excel -->
-                        <button class="btn btn-primary export-excel-btn">Empleados</button>
-                    </div>
-                    <div class="col-sm-1">
-                        <!-- Botón para exportar a Excel -->
-                        <button class="btn btn-primary export-vestuarios-btn">Reporte vestuarios</button>
-                    </div>
-                    <div class="col-sm-1">
-                        <!-- Botón para exportar a Excel -->
-                        <button class="btn btn-primary export-phombres-btn"> Padrones Hombres</button>
-                    </div>
-                    <div class="col-sm-1">
-                        <!-- Botón para exportar a Excel -->
-                        <button class="btn btn-primary export-pmujeres-btn">Patrones Mujeres</button>
-                    </div>
-                    <div class="col-sm-1">
-                        <!-- Botón para exportar a Excel -->
-                        <button class="btn btn-primary export-phijos-btn">Padrones Hijos</button>
-                    </div>
-                </div>
+      
+                <div class="d-flex flex-wrap gap-2 mb-2">
+                    <button class="btn btn-success add-employee-btn flex-fill">Agregar Empleado</button>
+                    <button class="btn btn-primary export-excel-btn flex-fill">Empleados</button>
+                    <button class="btn btn-primary export-vestuarios-btn flex-fill">Vestuarios</button>
+                    <button class="btn btn-primary export-phombres-btn flex-fill">Padrones Padres</button>
+                    <button class="btn btn-primary export-pmujeres-btn flex-fill">Patrones Madres</button>
+                    <button class="btn btn-primary export-phijos-btn flex-fill">Padrones Hijos</button>
+               </div>
+
 
                 <!-- Tabla de Bootstrap -->
                 <div class="row">
@@ -50,8 +34,6 @@
                                     <!-- Combo para seleccionar el filtro -->
                                     <select id="filtro" class="form-control">
                                         <option value="empleados">Empleados</option>
-                                        <option value="vestuario">Vestuario</option>
-                                        <option value="padrones">Padrones</option>
                                         <option value="trayectoria">Trayectoria</option>
                                     </select>
                                     <br>
@@ -110,55 +92,55 @@
                 <form id="add-employee-form">
                     <div class="form-group">
                         <label for="add-numempleado">Número Empleado</label>
-                        <input type="text" class="form-control" id="add-numempleado" name="numempleado" required>
+                        <input type="text" class="form-control" id="add-numempleado" name="numempleado"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-nombre">Nombre</label>
-                        <input type="text" class="form-control" id="add-nombre" name="nombre" required>
+                        <input type="text" class="form-control" id="add-nombre" name="nombre"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-apaterno">Apellido Paterno</label>
-                        <input type="text" class="form-control" id="add-apaterno" name="apaterno" required>
+                        <input type="text" class="form-control" id="add-apaterno" name="apaterno"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-amaterno">Apellido Materno</label>
-                        <input type="text" class="form-control" id="add-amaterno" name="amaterno" required>
+                        <input type="text" class="form-control" id="add-amaterno" name="amaterno"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-Sexo">Sexo</label>
-                        <input type="text" class="form-control" id="add-Sexo" name="Sexo" required>
+                        <input type="text" class="form-control" id="add-Sexo" name="Sexo"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-curp">Curp</label>
-                        <input type="text" class="form-control" id="add-curp" name="curp" required>
+                        <input type="text" class="form-control" id="add-curp" name="curp"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-rfc">RFC</label>
-                        <input type="text" class="form-control" id="add-rfc" name="rfc" required>
+                        <input type="text" class="form-control" id="add-rfc" name="rfc"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-plaza">Plaza</label>
-                        <input type="text" class="form-control" id="add-plaza" name="plaza" required>
+                        <input type="text" class="form-control" id="add-plaza" name="plaza"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-puesto">Puesto</label>
-                        <input type="text" class="form-control" id="add-puesto" name="puesto" required>
+                        <input type="text" class="form-control" id="add-puesto" name="puesto"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-telefono">Telefono</label>
-                        <input type="text" class="form-control" id="add-telefono" name="telefono" required>
+                        <input type="text" class="form-control" id="add-telefono" name="telefono"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-email">Email</label>
-                        <input type="email" class="form-control" id="add-email" name="email" required>
+                        <input type="email" class="form-control" id="add-email" name="email"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-estadocivil">Estado Civil</label>
-                        <input type="text" class="form-control" id="add-estadocivil" name="estadocivil" required>
+                        <input type="text" class="form-control" id="add-estadocivil" name="estadocivil"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-hijos">Hijos</label>
-                        <input type="number" class="form-control" id="add-hijos" name="hijos" required>
+                        <input type="number" class="form-control" id="add-hijos" name="hijos"   style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group">
                         <label for="add-fechin">Fecha Inicio</label>
@@ -185,63 +167,63 @@
                         <input type="hidden" id="edit-id" name="id">
                         <div class="form-group">
                             <label for="edit-numempleado">Número Empleado</label>
-                            <input type="text" class="form-control" id="edit-numempleado" name="numempleado" required>
+                            <input type="text" class="form-control" id="edit-numempleado" name="numempleado"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-nombre">Nombre</label>
-                            <input type="text" class="form-control" id="edit-nombre" name="nombre" required>
+                            <input type="text" class="form-control" id="edit-nombre" name="nombre"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-apaterno">Apellido Paterno</label>
-                            <input type="text" class="form-control" id="edit-apaterno" name="apaterno" required>
+                            <input type="text" class="form-control" id="edit-apaterno" name="apaterno"  style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-amaterno">Apellido Materno</label>
-                            <input type="text" class="form-control" id="edit-amaterno" name="amaterno" required>
+                            <input type="text" class="form-control" id="edit-amaterno" name="amaterno"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-Sexo">Sexo</label>
-                            <input type="text" class="form-control" id="edit-Sexo" name="Sexo" required>
+                            <input type="text" class="form-control" id="edit-Sexo" name="Sexo"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-curp">Curp</label>
-                            <input type="text" class="form-control" id="edit-curp" name="curp" required>
+                            <input type="text" class="form-control" id="edit-curp" name="curp"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-rfc">RFC</label>
-                            <input type="text" class="form-control" id="edit-rfc" name="rfc" required>
+                            <input type="text" class="form-control" id="edit-rfc" name="rfc"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-plaza">Plaza</label>
-                            <input type="text" class="form-control" id="edit-plaza" name="plaza" required>
+                            <input type="text" class="form-control" id="edit-plaza" name="plaza"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-puesto">Puesto</label>
-                            <input type="text" class="form-control" id="edit-puesto" name="puesto" required>
+                            <input type="text" class="form-control" id="edit-puesto" name="puesto"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-telefono">Telefono</label>
-                            <input type="text" class="form-control" id="edit-telefono" name="telefono" required>
+                            <input type="text" class="form-control" id="edit-telefono" name="telefono"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-email">Email</label>
-                            <input type="email" class="form-control" id="edit-email" name="email" required>
+                            <input type="email" class="form-control" id="edit-email" name="email"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-estadocivil">Estado Civil</label>
-                            <input type="text" class="form-control" id="edit-estadocivil" name="estadocivil" required>
+                            <input type="text" class="form-control" id="edit-estadocivil" name="estadocivil"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-hijos">Hijos</label>
-                            <input type="number" class="form-control" id="edit-hijos" name="hijos" required>
+                            <input type="number" class="form-control" id="edit-hijos" name="hijos"   style="text-transform: uppercase;" required>
                         </div>
                         <div class="form-group">
                             <label for="edit-trayectoria">Trayectoria</label>
-                            <textarea class="form-control" id="edit-trayectoria" name="trayectoria" rows="4" required></textarea>
+                            <textarea class="form-control" id="edit-trayectoria" name="trayectoria" rows="4"   style="text-transform: uppercase;" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="edit-fechin">Fecha Inicio</label>
-                            <input type="date" class="form-control" id="edit-fechin" name="fechin" required>
+                            <input type="date" class="form-control" id="edit-fechin" name="fechin"  style="text-transform: uppercase;" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>
@@ -563,20 +545,13 @@
 
                         // Crear encabezados para la tabla
                         var headers = [
-                            ["Número Empleado", "Delegación", "Nombre", "Apellido Paterno", 
-                            "Apellido Materno", "Curp", "RFC", "Plaza", "Puesto", 
-                            "Teléfono", "Email", "Estado Civil", "Hijos", 
-                            "Trayectoria", "Fecha Inicio"]
+                            ["Delegación", "Número Empleado", "Nombre completo"]
                         ];
 
                         // Crear un array que contendrá todos los datos
                         var rows = data.map(function(empleado) {
                             return [
-                                empleado.numempleado, empleado.Delegacion, empleado.nombre,
-                                empleado.apaterno, empleado.amaterno, empleado.curp,
-                                empleado.rfc, empleado.plaza, empleado.puesto,
-                                empleado.telefono, empleado.email, empleado.estadocivil,
-                                empleado.hijos, empleado.Trayectoria, empleado.fechin
+                                empleado.Delegacion, empleado.numempleado, empleado.NombreEmpleado,
                             ];
                         });
 
@@ -714,22 +689,13 @@
                     if (response.status === 'success') {
                         var data = response.data;
 
-                        // Crear encabezados para la tabla
                         var headers = [
-                            ["Número Empleado", "Delegación", "Nombre", "Apellido Paterno", 
-                            "Apellido Materno", "Curp", "RFC", "Plaza", "Puesto", 
-                            "Teléfono", "Email", "Estado Civil", "Hijos", 
-                            "Trayectoria", "Fecha Inicio"]
+                            ["Delegación", "Número Empleado", "Nombre completo"]
                         ];
 
-                        // Crear un array que contendrá todos los datos
                         var rows = data.map(function(empleado) {
                             return [
-                                empleado.numempleado, empleado.Delegacion, empleado.nombre,
-                                empleado.apaterno, empleado.amaterno, empleado.curp,
-                                empleado.rfc, empleado.plaza, empleado.puesto,
-                                empleado.telefono, empleado.email, empleado.estadocivil,
-                                empleado.hijos, empleado.Trayectoria, empleado.fechin
+                                empleado.Delegacion, empleado.numempleado, empleado.NombreEmpleado,
                             ];
                         });
 
@@ -764,9 +730,7 @@
             });
         });
 
-       
-
-
+    
         function loadEmployees() {
             var filtro = $('#filtro').val();
             $.ajax({
@@ -869,13 +833,13 @@
 
                         // Crear encabezados para la tabla
                         var headers = [
-                            ["Número Empleado", "Nombre", "Nombre Hijo", "Fecha de Nacimiento"]
+                            ["Delegación", "Nombre", "Nombre Hijo", "Fecha de Nacimiento"]
                         ];
 
                         // Crear un array que contendrá todos los datos
                         var rows = data.map(function(empleado) {
                             return [
-                                empleado.NumeroEmpleado,
+                                empleado.Delegacion,
                                 empleado.NombreEmpleado,
                                 empleado.NombreHijo,
                                 empleado.FechaNacimiento
@@ -949,7 +913,7 @@
             });
       }
 
-        function showHijosModal(numempleado) {
+      function showHijosModal(numempleado) {
 
                 $.ajax({
                 url: '../GESTION_EMPLEADOS/Controllers/GetHijosEmpleado.php',
@@ -992,7 +956,7 @@
                     console.error('Error al cargar los datos de los hijos:', error);
                 }
          });
-        }
+      }
 
        function showVestuarioModal(numempleado) {
             $.ajax({

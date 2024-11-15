@@ -14,7 +14,8 @@ try {
         SELECT e.numempleado as NumeroEmpleado,
         CONCAT(e.nombre, ' ', e.apaterno, ' ', e.amaterno) AS NombreEmpleado, 
         h.NombreHijo,
-        h.FechaNacimiento
+        h.FechaNacimiento,
+        e.Delegacion
         FROM personal e
         INNER JOIN hijos h ON e.numempleado = h.NumeroEmpleado
         WHERE TIMESTAMPDIFF(YEAR, h.FechaNacimiento, CURDATE()) < 12
