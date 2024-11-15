@@ -10,7 +10,10 @@ $response = [
 
 try {
     // Convertimos `sexo` a minúsculas para hacer una comparación insensible a mayúsculas/minúsculas
-    $sql = "SELECT * FROM personal WHERE hijos = 1 AND LOWER(Sexo) = 'Femenino'";
+    $sql = "SELECT  numempleado,
+                    Delegacion, 
+                    CONCAT(nombre, ' ', apaterno, ' ', amaterno) AS NombreEmpleado 
+                    FROM personal WHERE hijos = 1 AND LOWER(Sexo) = 'Femenino'";
     $query = $pdo->prepare($sql);
     $query->execute();
     $empleados = $query->fetchAll(PDO::FETCH_ASSOC);

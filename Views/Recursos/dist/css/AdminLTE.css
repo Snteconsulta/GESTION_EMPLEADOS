@@ -3244,10 +3244,14 @@ table.text-center th {
 .register-logo a {
   color: #444;
 }
+
 .login-page,
 .register-page {
-  background: #d2d6de;
+  /* background: #d2d6de; */
+  background: url('../../../Imagenes/FONDO.jpg');
+  background-size: cover;
 }
+
 .login-box,
 .register-box {
   width: 360px;

@@ -23,6 +23,8 @@
   <!-- <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
 
   <link rel="stylesheet" href="<?=APP_URL;?>/Views/Recursos/dist/css/skins/_all-skins.min.css">
+  <!-- <link rel="stylesheet" href="<?=APP_URL;?>/Views/Recursos/dist/css/skins/skin-black.min.css"> -->
+
   <!-- Sweetalert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
