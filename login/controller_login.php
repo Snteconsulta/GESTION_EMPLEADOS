@@ -26,6 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $contador++;
     }
     if (($contador > 0) && password_verify($password, $password_tabla)) {
+            
+        $_SESSION['usuario'] = [
+            'id' => $usuario['id_usuario'],
+            'nombre' => $usuario['nombres'],
+            'email' => $usuario['email']
+        ];
+
         $response['status'] = 'success';
         $response['message'] = 'Bienvenido al Sistema SNTE-Consulta';
     } else {
