@@ -251,6 +251,8 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>FechaNacimiento</th>
+                                <th>Acta de Nacimiento</th>
+                                <th>Subir PDF</th>
                             </tr>
                         </thead>
                         <tbody id="hijos-tbody">
@@ -932,14 +934,78 @@
                             tbody.append(emptyRow);
                         } else {
                             hijos.forEach(function(hijo) {
+
+                               console.log(hijo.Actanacimiento)
+
+                               var actaContent = hijo.Actanacimiento && hijo.Actanacimiento !== "0" && hijo.Actanacimiento.trim() !== "" 
+                                    ? `<a href="${hijo.Actanacimiento}" target="_blank">Ver Acta</a>` 
+                                    : `<input type="file" class="form-control acta-nacimiento" accept=".pdf">`;
+
+
                                 var row = `<tr>
                                     <td>${hijo.NombreHijo}</td>
                                     <td>${hijo.FechaNacimiento}</td>
+                                    <td>${actaContent}</td>
+                                    <td><button class="btn btn-success upload-acta" ${hijo.Actanacimiento ? 'disabled' : ''}>Subir Acta</button></td>
+                                    <!-- Campo oculto para el id del hijo -->
+                                    <td style="display:none;"><input type="text" class="id-hijo" value="${hijo.IdHijo}"></td>
                                 </tr>`;
+
                                 tbody.append(row);
                             });
                         }
-                        
+
+
+                       // Habilitar el botón de "Subir Acta" cuando se selecciona un archivo
+                        $(document).on('change', 'input[type="file"].acta-nacimiento', function() {
+                            var row = $(this).closest('tr'); // Obtener la fila de la tabla donde se hizo el cambio
+                            row.find('.upload-acta').prop('disabled', false); // Habilitar el botón "Subir Acta"
+                        });
+
+                                        // Lógica para subir el archivo cuando se hace clic en "Subir Acta"
+                        $(document).on('click', '.upload-acta', function() {
+                            var row = $(this).closest('tr'); // Obtener la fila correspondiente
+                            var fileInput = row.find('input[type="file"].acta-nacimiento')[0]; // Obtener el input de archivo
+                            var idHijo = row.find('.id-hijo').val(); // Obtener el ID del hijo desde el campo oculto
+
+                            if (fileInput.files.length > 0) {
+                                var formData = new FormData();
+                                formData.append('acta-nacimiento', fileInput.files[0]); // Agregar el archivo PDF
+                                formData.append('nombre-hijo', row.find('td').eq(0).text()); // Obtener el nombre del hijo
+                                formData.append('fecha-nacimiento-hijo', row.find('td').eq(1).text()); // Obtener la fecha de nacimiento del hijo
+                                formData.append('id-hijo', idHijo); // Agregar el id_hijo al FormData
+
+                         
+                                $.ajax({
+                                    url: '../GESTION_EMPLEADOS/Controllers/UpdateActaNacimiento.php',
+                                    type: 'POST',
+                                    data: formData,
+                                    contentType: false, // No establecer el tipo de contenido
+                                    processData: false, // No procesar los datos, ya que estamos enviando FormData
+                                    success: function(response) {
+                                        console.log(response)
+                                    
+                                        var result = response;
+
+                                        // Si la respuesta es exitosa, mostrar el enlace al archivo
+                                        if (result.status === 'success') {
+                                            // Cambiar la celda del "Acta de Nacimiento" por un enlace al archivo
+                                            row.find('td').eq(2).html(`<a href="${result.acta_url}" target="_blank">Ver Acta</a>`);
+                                            row.find('.upload-acta').prop('disabled', true);
+                                            alert('Acta de nacimiento subida correctamente.');
+                                        } else {
+                                            alert('Error al subir el archivo: ' + result.message);
+                                        }
+                                     },
+                                    error: function() {
+                                        alert('Hubo un error al cargar el archivo.');
+                                    }
+                                });
+                            } else {
+                                alert('Por favor, seleccione un archivo para subir.');
+                            }
+                        });
+
     
                     } else {
                             tbody.empty();

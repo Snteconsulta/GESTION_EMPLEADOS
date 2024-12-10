@@ -40,7 +40,8 @@ include('../app/config.php');
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <h3><b><?= APP_TITULO_LOGIN; ?></b></h3>
+    <h3 style="color:White;"><b><?= APP_TITULO_LOGIN; ?></b></h3>
+    <!-- <h3><b><?= APP_TITULO_LOGIN; ?></b></h3> -->
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
