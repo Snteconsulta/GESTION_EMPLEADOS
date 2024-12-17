@@ -31,13 +31,13 @@ if (isset($_SESSION['usuario'])) {
         <li>
               <a href="empleados">
               <!-- <img src="Views/Imagenes/SNTE.png" alt="Inicio" style="width: 550px; height: 150px; margin-right: 10px;"> -->
-                <img src="Views/Imagenes/SNTE.png" alt="Inicio" style="width: 550px; height: 150px; margin: 0 auto;"> 
+              <img src="Views/Imagenes/SNTE.png" alt="Inicio" style="width: auto; height: 100px; margin-inline: 200px; border: 1px solid orange">
               </a>
             </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="Views/Imagenes/Users/administrador_icono.jpg" class="user-image" alt="User Image">
+              <img src="Views/Imagenes/Users/administrador_icono.jpg" class="user-image" alt="Imagen de Usurio">
               <span class="hidden-xs"> <?= $nombreUsuario; ?></span>
             </a>
           
@@ -45,7 +45,7 @@ if (isset($_SESSION['usuario'])) {
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="Views/Imagenes/Users/administrador_icono.jpg" class="img-circle" alt="User Image">
+                <img src="Views/Imagenes/Users/administrador_icono.jpg" class="img-circle" alt="Imagen de Usuario">
 
                 <p>
                   <?= $nombreUsuario; ?>
