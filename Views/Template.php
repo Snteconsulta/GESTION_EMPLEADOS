@@ -47,6 +47,39 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <style type="text/css">
+  .skin-blue .main-header .navbar {
+  background-color: #480404;
+  }
+  </style> 
+     <style type="text/css">
+      .skin-blue .main-header .logo {
+      background-color: #480404;
+      color: #fff;
+      border-bottom: 0 solid transparent;
+      }
+      </style>
+
+       <style type="text/css"> 
+        .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+        background-color: #757371;
+        }
+       </style> 
+
+       <style type="text/css">
+        .skin-blue .main-header li.user-header {
+         background-color: #ed8b34;
+        }
+      </style>
+
+        <style type="text/css">
+          .btn-primary {
+           background-color: #ae5050;
+            border-color: #e4ecf0;
+            }
+        </style>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">

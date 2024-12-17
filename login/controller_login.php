@@ -37,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response['message'] = 'Bienvenido al Sistema SNTE-Consulta';
     } else {
         $response['status'] = 'error';
-       // $response['message'] = 'Los datos introducidos son incorrectos, vuelva a intentarlo';
         $response['message'] = 'Los datos introducidos son incorrectos, vuelva a intentarlo. Usuario: ' . htmlspecialchars($email) . ', Contraseña: ' . htmlspecialchars($password);
     }
 

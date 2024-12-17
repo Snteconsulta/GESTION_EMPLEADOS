@@ -30,8 +30,8 @@ if (isset($_SESSION['usuario'])) {
         <ul class="nav navbar-nav">
         <li>
               <a href="empleados">
-              <!-- <img src="Views/Imagenes/SNTE.png" alt="Inicio" style="width: 550px; height: 150px; margin-right: 10px;"> -->
-              <img src="Views/Imagenes/SNTE.png" alt="Inicio" style="width: auto; height: 100px; margin-inline: 200px; border: 1px solid orange">
+              <img src="Views/Imagenes/SNTE.png" alt="Inicio" style="width: 550px; height: 150px; margin-right: 200px; border: 2px solid orange">
+              <!-- <img src="Views/Imagenes/SNTE.png" alt="Inicio" style="width: auto; height: 100px; margin-inline: 200px; border: 1px solid orange"> -->
               </a>
             </li>
           <!-- User Account: style can be found in dropdown.less -->
