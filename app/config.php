@@ -10,6 +10,7 @@ define("APP_TITULO_LOGIN","SNTE CONSULTA");
 define("APP_URL","http://localhost/GESTION_EMPLEADOS");
 define("APP_URL_INICIO","http://localhost/GESTION_EMPLEADOS/empleados");
 define("APP_URL_LOGIN","http://localhost/GESTION_EMPLEADOS/LOGIN");
+define("URL_CONTROLER","../GESTION_EMPLEADOS/Controllers");
 
 //define("APP_URL");
 
